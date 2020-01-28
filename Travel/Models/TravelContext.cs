@@ -9,27 +9,27 @@ namespace Travel.Models
         {
         }
 
-        public DbSet<Country> Countries { get; set; }
-        public DbSet<City> Cities { get; set; }
+        public virtual DbSet<Place> Places{ get; set; }
+        public DbSet<Review> Reviews { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<Country>()
+            builder.Entity<Place>()
                 .HasData(
-                    new Country { CountryId = 1, Name = "Japan", Rating = 5},
-                    new Country { CountryId = 2, Name = "England", Rating = 5},
-                    new Country { CountryId = 3, Name = "Japan", Rating = 1},
-                    new Country { CountryId = 4, Name = "Taiwan", Rating = 5},
-                    new Country { CountryId = 5, Name = "Brazil", Rating = 5}
+                    new Place { PlaceId = 1, City = "Tokyo", Country = "Japan"},
+                    new Place { PlaceId = 2, City = "Seattle", Country = "US"},
+                    new Place { PlaceId = 3, City = "London", Country = "England"},
+                    new Place { PlaceId = 4, City = "Taipei", Country = "Taiwan"},
+                    new Place { PlaceId = 5, City = "Rio", Country = "Brazil"}
                 );
             
-            builder.Entity<City>()
+            builder.Entity<Review>()
                 .HasData(
-                    new City { CityId = 1, Name = "Tokyo", Rating = 5},
-                    new City { CityId = 2, Name = "London", Rating = 3},
-                    new City { CityId = 3, Name = "Kyoto", Rating = 1},
-                    new City { CityId = 4, Name = "Taipei", Rating = 5},
-                    new City { CityId = 5, Name = "Rio", Rating = 3}
+                    new Review { ReviewId = 1, individualReview = "Great!", PlaceId = 1},
+                    new Review { ReviewId = 2, individualReview = "I hated this place!", PlaceId = 2},
+                    new Review { ReviewId = 3, individualReview = "Highly recommend!!", PlaceId = 3},
+                    new Review { ReviewId = 4, individualReview = "I loved this place. I will come back!", PlaceId =  4},
+                    new Review { ReviewId = 5, individualReview = "It was ok.", PlaceId = 5}
                 );
         }
     }

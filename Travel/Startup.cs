@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using Travel.Models;
+using Newtonsoft.Json;
 
 namespace Travel
 {
@@ -29,7 +30,10 @@ namespace Travel
         {
             services.AddDbContext<TravelContext>(opt =>
             opt.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+            .AddJsonOptions(options => {
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            }); //nina's code
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
