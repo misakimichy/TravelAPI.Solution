@@ -7,7 +7,7 @@ namespace Travel.Models
         public int CountryId { get; set; }
         public string Name { get; set; }
         // public List<string> Review { get; set; }
-        // public int Rating { get; set; }
+        public int Rating { get; set; }
         // private List<Country> _instances = new List<Country>{};
         // private List<City> cities = new List<City>{};
         // public Country(string name)

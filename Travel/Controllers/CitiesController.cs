@@ -8,19 +8,19 @@ namespace Travel.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CountriesController : ControllerBase
+    public class CitiesController : ControllerBase
     {
         private TravelContext _db;
-        public CountriesController(TravelContext db)
+        public CitiesController(TravelContext db)
         {
             _db = db;
         }
 
-        //GET api countries list
+        //GET api Cities list
         [HttpGet]
-        public ActionResult<IEnumerable<Country>> Get(string name, int rating)
+        public ActionResult<IEnumerable<City>> Get(string name, int rating)
         {
-            var query = _db.Countries.AsQueryable();
+            var query = _db.Cities.AsQueryable();
             if (name != null)
             {
                 query = query.Where(entry => entry.Name == name);
@@ -32,34 +32,34 @@ namespace Travel.Controllers
             return query.ToList();
         }
         
-        //Posting a new country
+        //Posting a new city
         [HttpPost]
-        public void Post([FromBody] Country country)
+        public void Post([FromBody] City city)
         {
-            _db.Countries.Add(country);
+            _db.Cities.Add(city);
             _db.SaveChanges();
         }
 
-        //GETTING single country from db
+        //GETTING single city from db
         [HttpGet("{id}")]
-        public ActionResult<Country> Get(int id)
+        public ActionResult<City> Get(int id)
         {
-            return _db.Countries.FirstOrDefault(entry => entry.CountryId == id);
+            return _db.Cities.FirstOrDefault(entry => entry.CityId == id);
         }
 
         [HttpPut("{id}")]
-        public void Put (int id, [FromBody] Country country)
+        public void Put (int id, [FromBody] City city)
         {
-            country.CountryId = id;
-            _db.Entry(country).State = EntityState.Modified;
+            city.CityId = id;
+            _db.Entry(city).State = EntityState.Modified;
             _db.SaveChanges();
         }
 
         [HttpDelete("{id}")]
         public void Delete (int id)
         {
-            var countryToDelete = _db.Countries.FirstOrDefault(entry => entry.CountryId == id);
-            _db.Countries.Remove(countryToDelete);
+            var cityToDelete = _db.Cities.FirstOrDefault(entry => entry.CityId == id);
+            _db.Cities.Remove(cityToDelete);
             _db.SaveChanges();
         }
 
