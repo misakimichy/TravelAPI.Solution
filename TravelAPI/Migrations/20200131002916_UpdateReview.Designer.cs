@@ -3,13 +3,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Travel.Models;
+using TravelAPI.Models;
 
 namespace Travel.Migrations
 {
-    [DbContext(typeof(TravelContext))]
-    [Migration("20200128233051_Initial")]
-    partial class Initial
+    [DbContext(typeof(TravelAPIContext))]
+    [Migration("20200131002916_UpdateReview")]
+    partial class UpdateReview
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -18,7 +18,7 @@ namespace Travel.Migrations
                 .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("Travel.Models.Place", b =>
+            modelBuilder.Entity("TravelAPI.Models.Place", b =>
                 {
                     b.Property<int>("PlaceId")
                         .ValueGeneratedOnAdd();
@@ -26,6 +26,8 @@ namespace Travel.Migrations
                     b.Property<string>("City");
 
                     b.Property<string>("Country");
+
+                    b.Property<double>("Rating");
 
                     b.HasKey("PlaceId");
 
@@ -36,42 +38,51 @@ namespace Travel.Migrations
                         {
                             PlaceId = 1,
                             City = "Tokyo",
-                            Country = "Japan"
+                            Country = "Japan",
+                            Rating = 3.0
                         },
                         new
                         {
                             PlaceId = 2,
                             City = "Seattle",
-                            Country = "US"
+                            Country = "US",
+                            Rating = 4.0
                         },
                         new
                         {
                             PlaceId = 3,
                             City = "London",
-                            Country = "England"
+                            Country = "England",
+                            Rating = 3.5
                         },
                         new
                         {
                             PlaceId = 4,
                             City = "Taipei",
-                            Country = "Taiwan"
+                            Country = "Taiwan",
+                            Rating = 5.0
                         },
                         new
                         {
                             PlaceId = 5,
                             City = "Rio",
-                            Country = "Brazil"
+                            Country = "Brazil",
+                            Rating = 0.0
                         });
                 });
 
-            modelBuilder.Entity("Travel.Models.Review", b =>
+            modelBuilder.Entity("TravelAPI.Models.Review", b =>
                 {
                     b.Property<int>("ReviewId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("PlaceId");
 
-                    b.Property<string>("individualReview");
+                    b.Property<double>("Rating");
+
+                    b.Property<string>("ReviewText");
+
+                    b.Property<string>("UserName");
 
                     b.HasKey("ReviewId");
 
@@ -84,37 +95,47 @@ namespace Travel.Migrations
                         {
                             ReviewId = 1,
                             PlaceId = 1,
-                            individualReview = "Great!"
+                            Rating = 2.0,
+                            ReviewText = "Great!",
+                            UserName = "user1"
                         },
                         new
                         {
                             ReviewId = 2,
                             PlaceId = 2,
-                            individualReview = "I hated this place!"
+                            Rating = 1.0,
+                            ReviewText = "I hated this place!",
+                            UserName = "user2"
                         },
                         new
                         {
                             ReviewId = 3,
                             PlaceId = 3,
-                            individualReview = "Highly recommend!!"
+                            Rating = 4.5,
+                            ReviewText = "Highly recommend!!",
+                            UserName = "user1"
                         },
                         new
                         {
                             ReviewId = 4,
                             PlaceId = 4,
-                            individualReview = "I loved this place. I will come back!"
+                            Rating = 5.0,
+                            ReviewText = "I loved this place. I will come back!",
+                            UserName = "user2"
                         },
                         new
                         {
                             ReviewId = 5,
                             PlaceId = 5,
-                            individualReview = "It was ok."
+                            Rating = 3.5,
+                            ReviewText = "It was ok.",
+                            UserName = "user2"
                         });
                 });
 
-            modelBuilder.Entity("Travel.Models.Review", b =>
+            modelBuilder.Entity("TravelAPI.Models.Review", b =>
                 {
-                    b.HasOne("Travel.Models.Place", "Place")
+                    b.HasOne("TravelAPI.Models.Place", "Place")
                         .WithMany("Reviews")
                         .HasForeignKey("PlaceId")
                         .OnDelete(DeleteBehavior.Cascade);

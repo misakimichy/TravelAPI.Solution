@@ -1,29 +1,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using Travel.Models;
+using TravelAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Travel.Controllers
+namespace TravelAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class ReviewsController : ControllerBase
     {
-        private TravelContext _db;
-        public ReviewsController(TravelContext db)
+        private TravelAPIContext _db;
+        public ReviewsController(TravelAPIContext db)
         {
             _db = db;
         }
 
         //GET api Reviews list
         [HttpGet]
-        public ActionResult<IEnumerable<Review>> Get(string individualreview, int placeid, int reviewid)
+        public ActionResult<IEnumerable<Review>> Get(string ReviewText, int placeid, int reviewid)
         {
             var query = _db.Reviews.AsQueryable();
-            if (individualreview != null)
+            if (ReviewText != null)
             {
-                query = query.Where(entry => entry.individualReview == individualreview);
+                query = query.Where(entry => entry.ReviewText == ReviewText);
             }
              if (placeid != 0)
             {

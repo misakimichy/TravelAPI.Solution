@@ -2,17 +2,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 using Microsoft.AspNetCore.Mvc;
-using Travel.Models;
+using TravelAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Travel.Controllers
+namespace TravelAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class PlacesController : ControllerBase
     {
-        private TravelContext _db;
-        public PlacesController(TravelContext db)
+        private TravelAPIContext _db;
+        public PlacesController(TravelAPIContext db)
         {
             _db = db;
         }

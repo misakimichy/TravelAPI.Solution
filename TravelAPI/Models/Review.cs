@@ -1,14 +1,16 @@
 using System.Collections.Generic;
 
-namespace Travel.Models
+namespace TravelAPI.Models
 {
     public class Review
     {
         public int ReviewId { get; set; }
-        public string individualReview { get; set; }
+        public string ReviewText{ get; set; }
+        public double Rating { get; set; }
 
-        //Sharons addition
         public int PlaceId { get; set; }
         public virtual Place Place { get; set; }
+
+        public string UserName { get; set; }
     }
 }

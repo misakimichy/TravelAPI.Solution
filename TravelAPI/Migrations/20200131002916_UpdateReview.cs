@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Travel.Migrations
 {
-    public partial class Initial : Migration
+    public partial class UpdateReview : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,7 +14,8 @@ namespace Travel.Migrations
                     PlaceId = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     City = table.Column<string>(nullable: true),
-                    Country = table.Column<string>(nullable: true)
+                    Country = table.Column<string>(nullable: true),
+                    Rating = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -27,8 +28,10 @@ namespace Travel.Migrations
                 {
                     ReviewId = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    individualReview = table.Column<string>(nullable: true),
-                    PlaceId = table.Column<int>(nullable: false)
+                    ReviewText = table.Column<string>(nullable: true),
+                    Rating = table.Column<double>(nullable: false),
+                    PlaceId = table.Column<int>(nullable: false),
+                    UserName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -43,26 +46,26 @@ namespace Travel.Migrations
 
             migrationBuilder.InsertData(
                 table: "Places",
-                columns: new[] { "PlaceId", "City", "Country" },
+                columns: new[] { "PlaceId", "City", "Country", "Rating" },
                 values: new object[,]
                 {
-                    { 1, "Tokyo", "Japan" },
-                    { 2, "Seattle", "US" },
-                    { 3, "London", "England" },
-                    { 4, "Taipei", "Taiwan" },
-                    { 5, "Rio", "Brazil" }
+                    { 1, "Tokyo", "Japan", 3.0 },
+                    { 2, "Seattle", "US", 4.0 },
+                    { 3, "London", "England", 3.5 },
+                    { 4, "Taipei", "Taiwan", 5.0 },
+                    { 5, "Rio", "Brazil", 0.0 }
                 });
 
             migrationBuilder.InsertData(
                 table: "Reviews",
-                columns: new[] { "ReviewId", "PlaceId", "individualReview" },
+                columns: new[] { "ReviewId", "PlaceId", "Rating", "ReviewText", "UserName" },
                 values: new object[,]
                 {
-                    { 1, 1, "Great!" },
-                    { 2, 2, "I hated this place!" },
-                    { 3, 3, "Highly recommend!!" },
-                    { 4, 4, "I loved this place. I will come back!" },
-                    { 5, 5, "It was ok." }
+                    { 1, 1, 2.0, "Great!", "user1" },
+                    { 2, 2, 1.0, "I hated this place!", "user2" },
+                    { 3, 3, 4.5, "Highly recommend!!", "user1" },
+                    { 4, 4, 5.0, "I loved this place. I will come back!", "user2" },
+                    { 5, 5, 3.5, "It was ok.", "user2" }
                 });
 
             migrationBuilder.CreateIndex(
